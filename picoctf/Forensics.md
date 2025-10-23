@@ -8,7 +8,7 @@ Decode this message from the moon.
 - Use a free online SSTV decrypter reveals an image file, the link in resources.
 - This file has the flag.
 
-![SSTV File](github.com/Crownles-s/Debroop_phase2/blob/main/assets/sstv_decoded_a66f1482-b89e-4472-8c15-7f54ab341a38.png?raw=true)
+![SSTV File](../assets/sstv_decoded_a66f1482-b89e-4472-8c15-7f54ab341a38.png?raw=true)
 
 ## Flag:
 
