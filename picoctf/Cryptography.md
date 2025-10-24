@@ -26,7 +26,7 @@ picoCTF{n33d_a_lArg3r_e_d0cd6eae}
 - Other methods of RSA cracking including factoring p andc q when e is sufficiently large. This seems to need a private key and d value.
 
 ## Notes:
-- Alternate tangent 1: 
+- Did not go for any alternate tangents. 
 
 ## Resources:
 - RSA Explanation (https://www.geeksforgeeks.org/computer-networks/rsa-algorithm-cryptography/)
