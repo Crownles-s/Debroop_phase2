@@ -10,7 +10,7 @@ Let's decrypt this: ciphertext? Something seems a bit small.
 - I chose a website with explicit support for small e attacks. Here, I entered N, c and e.
 - The final output after the successful small e attack is the flag.
 
-![RSA Attack website](../assets/Screenshot 2025-10-24 192306.png?raw=true)
+![RSA Attack website](../assets/Screenshot%202025-10-24%20192306.png?raw=true)
 
 ## Flag:
 
