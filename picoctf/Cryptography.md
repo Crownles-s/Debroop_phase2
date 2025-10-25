@@ -148,6 +148,7 @@ picoCTF{custom_d2cr0pt6d_751a22dc}
 - Python arithmetic (https://www.w3schools.com/python/gloss_python_arithmetic_operators.asp)
 - Logical operators (https://www.geeksforgeeks.org/python/python-logical-operators/)
 - Curled braces explanation (https://www.geeksforgeeks.org/python/parentheses-square-brackets-and-curly-braces-in-python/)
+- Len Function (https://www.w3schools.com/python/ref_func_len.asp)
 - Undoing ord function with chr (https://stackoverflow.com/questions/29818519/what-is-the-opposite-of-pythons-ord-function)
 - Meaning of [::-1] (https://stackoverflow.com/questions/31633635/what-is-the-meaning-of-inta-1-in-python)
 - // function (https://www.freecodecamp.org/news/what-does-double-slash-mean-in-python/)
