@@ -1,5 +1,5 @@
 # 1. m00nwalk
-Decode this message from the moon.
+Decode this [message](../assets/message.wav) from the moon.
 
 ## Solution:
 - Open the given link, which downloads an audio file.
