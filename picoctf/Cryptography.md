@@ -1,5 +1,5 @@
 # 1. miniRSA
-Let's decrypt this: ciphertext? Something seems a bit small.
+Let's decrypt this: [ciphertext](../assets/ciphertext)? Something seems a bit small.
 
 ## Solution:
 - Open the given link, which downloads a text(?) file. I could not see what file type it was, even in Properties.
