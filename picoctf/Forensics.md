@@ -86,3 +86,104 @@ picoCTF{qu1t3_a_v13w_2020}
 - Information hiding using hex (https://cyberhacktics.com/hiding-information-by-changing-an-images-height/#:~:text=Steps,net%20via%20your%20web%20browser).)
 - Bitmap header information (https://en.wikipedia.org/wiki/BMP_file_format#:~:text=The%20first%202%20bytes%20of,least%2Dsignificant%20byte%20first).&text=The%20header%20field%20used%20to,same%20as%20BM%20in%20ASCII.)
 
+# 3. Trivial Flag Transfer Protocol
+Figure out how they moved the flag.
+
+## Solution:
+- Download the pcapng file and open it in wireshark to see details.
+- Immediately, I spot an instructions.txt among the top few entries.
+- Export it using File -> Export objects -> tftp.
+- Found the contents and ran them through a cipher checker to determine ROT13 used.
+- Reversed the ROT13 to get the message. "TFTP doesn't encrypt our traffic so we must disguise our flag transfer. Figure out a way to hide the flag and I will check back for the plan."
+
+```
+GSGCQBRFAGRAPELCGBHEGENSSVPFBJRZHFGQVFTHVFRBHESYNTGENAFSRE.SVTHERBHGNJNLGBUVQRGURSYNTNAQVJVYYPURPXONPXSBEGURCYNA
+TFTPDOESNTENCRYPTOURTRAFFICSOWEMUSTDISGUISEOURFLAGTRANSFER.FIGUREOUTAWAYTOHIDETHEFLAGANDIWILLCHECKBACKFORTHEPLAN
+```
+
+- Now, I try to find any plan and find another file with more ROT13 encrypted text. Decoding it we get "I used the program and hid it with - due diligence. Check out the photos."
+
+```
+VHFRQGURCEBTENZNAQUVQVGJVGU-QHRQVYVTRAPR.PURPXBHGGURCUBGBF
+IUSEDTHEPROGRAMANDHIDITWITH-DUEDILIGENCE.CHECKOUTTHEPHOTOS
+```
+
+- Now, I turn to 3 photos of the .bmp format for furthur progress.
+- Installed binwalk for easy data access in the images.
+- Used cp to transfer the pictures from Windows to WSL.
+- Since picture2.bmp is 36 mb while the others are less than 1mb, I ran binwalk on that because I have used binwalk before.
+- With no readable results, I used binwalk on all 3.
+- Then, searching online proved that .bmp cannot have layers. So, flag cannot be in any other layers.
+- I turned to another file in the pcapng called program.deb. This is a debian file installer.
+- I used commands to check the file. It was steghide.
+
+```sh
+crownless@LAPTOP-6K42D1CN:~$ cp /mnt/c/Users/DEBROOP/Downloads/program.deb ~/
+crownless@LAPTOP-6K42D1CN:~$ dpkg-deb --info program.deb
+ new Debian package, version 2.0.
+ size 138310 bytes: control archive=1250 bytes.
+     826 bytes,    18 lines      control
+    1184 bytes,    17 lines      md5sums
+ Package: steghide
+ Source: steghide (0.5.1-9.1)
+ Version: 0.5.1-9.1+b1
+ Architecture: amd64
+ Maintainer: Ola Lundqvist <opal@debian.org>
+ Installed-Size: 426
+ Depends: libc6 (>= 2.2.5), libgcc1 (>= 1:4.1.1), libjpeg62-turbo (>= 1:1.3.1), libmcrypt4, libmhash2, libstdc++6 (>= 4.9), zlib1g (>= 1:1.1.4)
+ Section: misc
+ Priority: optional
+ Description: A steganography hiding tool
+  Steghide is steganography program which hides bits of a data file
+  in some of the least significant bits of another file in such a way
+  that the existence of the data file is not visible and cannot be proven.
+  .
+  Steghide is designed to be portable and configurable and features hiding
+  data in bmp, wav and au files, blowfish encryption, MD5 hashing of
+  passphrases to blowfish keys, and pseudo-random distribution of hidden bits
+  in the container data.
+```
+- steghide reveals hidden files placed insise images. So, I read some tutorials on using steghide.
+- After the tutorial, I also noticed the previous use of "due diligence" after a hyphen, ie, "I hid it with - due diligence". So, i used due diligence as the passphrase. First with spaces and in "", then together, and then in all caps.
+- Since picture2.bmp was the largest, I used steghide on that with no results. picture3.bmp had the flag.
+- Picture3 put the flag in a text file, which I read using cat.
+
+```sh
+crownless@LAPTOP-6K42D1CN:~$ steghide extract -sf picture2.bmp
+Enter passphrase:
+steghide: could not extract any data with that passphrase!
+crownless@LAPTOP-6K42D1CN:~$ steghide extract -sf picture1.bmp
+Enter passphrase:
+steghide: could not extract any data with that passphrase!
+crownless@LAPTOP-6K42D1CN:~$ steghide extract -sf picture3.bmp
+Enter passphrase:
+wrote extracted data to "flag.txt".
+crownless@LAPTOP-6K42D1CN:~$ cat flag.txt
+picoCTF{h1dd3n_1n_pLa1n_51GHT_18375919}
+```
+
+## Flag:
+
+```
+picoCTF{h1dd3n_1n_pLa1n_51GHT_18375919}
+```
+
+## Concepts learnt:
+- Reading pcapng using Wireshark, and exporting documents and images.
+- ROT13 encryption and decryption.
+- Basic linux program installation.
+- Basic steganography principles.
+- Steghide and its uses.
+
+## Notes:
+- Alternate tangent 1: Binwalk to look for any hidden layers.
+
+## Resources:
+- Export objects from Wireshark (https://www.youtube.com/watch?v=Fn__yRYW6Wo&t=1s)
+- Encryption identifier (https://www.dcode.fr/cipher-identifier)
+- ROT13 decoder (https://cryptii.com/pipes/rot13-decoder)
+- Image analysis help (https://infosecwriteups.com/beginners-ctf-guide-finding-hidden-data-in-images-e3be9e34ae0d)
+- Debian installer checker (https://askubuntu.com/questions/642665/how-to-inspect-and-validate-a-deb-package-before-installation)
+- .deb install (https://askubuntu.com/questions/40779/how-do-i-install-a-deb-file-via-the-command-line)
+- Steghide tutorial (https://www.hackercoolmagazine.com/beginners-guide-to-steghide/)
+- Another Steghide tutorial (https://www.hongkiat.com/blog/hide-secret-files-in-images-using-steghide/)
