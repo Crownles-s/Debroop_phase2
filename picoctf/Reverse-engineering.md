@@ -163,7 +163,7 @@ chmod a+x debugger0_a
 debugger0_a
 ```
 - Then, I searched how to get the contents of the file to look for the main function as asked.
-- Sources suggested using objdump or readelf. Using objdump -d because description asks to disassemble/
+- Sources suggested using objdump or readelf. Using objdump -d because description asks to disassemble.
 ```
 objdump -d debugger0_a
 ```
