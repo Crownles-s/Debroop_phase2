@@ -58,3 +58,94 @@ picoCTF{00000d2a}
 - ldr (https://stackoverflow.com/questions/73495618/how-to-use-str-and-ldr-in-assembly)
 - lsl, sdiv and mov (https://www.cs.princeton.edu/courses/archive/fall19/cos217/reading/ArmInstructionSetOverview.pdf)
 - Decimal to hexadecimal convert (https://www.mathsisfun.com/binary-decimal-hexadecimal-converter.html)
+
+# 2. vault-door-3
+This vault uses for-loops and byte arrays. The source code for this vault is here: [VaultDoor3.java.](../assets/VaultDoor3.java)
+
+## Solution:
+- Open the given link, which downloads a .java, a JAVA source file. Opens without issues in vscode.
+- Now, I tried to understand the code. The comments clealy mention a password. The code itself looks very similar to C.
+
+```java
+class VaultDoor3 {
+    public static void main(String args[]) {
+        VaultDoor3 vaultDoor = new VaultDoor3();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter vault password: ");
+        String userInput = scanner.next();
+	String input = userInput.substring("picoCTF{".length(),userInput.length()-1);
+	if (vaultDoor.checkPassword(input)) {
+	    System.out.println("Access granted.");
+	} else {
+	    System.out.println("Access denied!");
+        }
+    }
+```
+- From this, we can see the format of the password to be picoCTF{}, so the password is part of the flag.
+- This snippet invokes the checkPassword below this. True returns "Access granted", false returns "Access denied"
+- So, I turn to the second half of the code.
+
+```java
+public boolean checkPassword(String password) {
+        if (password.length() != 32) {
+            return false;
+        }
+        char[] buffer = new char[32];
+        int i;
+        for (i=0; i<8; i++) {
+            buffer[i] = password.charAt(i);
+        }
+        for (; i<16; i++) {
+            buffer[i] = password.charAt(23-i);
+        }
+        for (; i<32; i+=2) {
+            buffer[i] = password.charAt(46-i);
+        }
+        for (i=31; i>=17; i-=2) {
+            buffer[i] = password.charAt(i);
+        }
+        String s = new String(buffer);
+        return s.equals("jU5t_a_sna_3lpm18g947_u_4_m9r54f");
+    }
+```
+
+- The start immediately mentions that the password length must be equal to 32. The snippet returns false if it's not 32.
+- An int i is defined, to be used in for loop indexing. Followed by 4 for loops.
+- The first for loop takes password characters indexed 0 to 7, and places them at index 0 to 7 of a new string.
+- The second for loop works on index 8 to 15, placing the characters into index 15 to 8 respectively in order.
+- The third for loop takes index 16 to 32 but in steps of 2. So it takes 16, 18, 20, up to 30. Places them at 30, 28 , 26, respectively up to 14.
+- The fourth for loop takes index 31 to 17 in reverse order and steps of 2. It places them at the same index in the new string.
+- These 4 loops cover all 0 - 31 index characters. Since out put is supposed to be `jU5t_a_sna_3lpm18g947_u_4_m9r54f` we can just reverse the jumbling.
+- To reverse the jumbling, we can do it manually or write a code.
+
+```java
+char[] password = new char[32];
+        for (; i<16; i++) {
+             password.charAt(23-i) = buffer[i];
+        }
+        for (; i<32; i+=2) {
+             password.charAt(46-i) = buffer[i];
+        }
+        for (i=0; i<8; i++) {
+             password.charAt(i) = buffer[i];
+        }
+        for (i=31; i>=17; i-=2) {
+             password.charAt(i) = buffer[i];
+        }
+```
+
+## Flag:
+
+```
+picoCTF{jU5t_a_s1mpl3_an4gr4m_4_u_79958f}
+```
+
+## Concepts learnt:
+- For loops in java.
+- If and else in java.
+
+## Notes:
+- No alternate tangents.
+
+## Resources:
+- None.
