@@ -149,3 +149,54 @@ picoCTF{jU5t_a_s1mpl3_an4gr4m_4_u_79958f}
 
 ## Resources:
 - None.
+
+# 2. GDB baby step 1
+Can you figure out what is in the eax register at the end of the main function? Put your answer in the picoCTF flag format: picoCTF{n} where n is the contents of the eax register in the decimal number base. If the answer was 0x11 your flag would be picoCTF{17}.
+Disassemble [this.](../assets/debugger0_a)
+
+## Solution:
+- Used hex editor to identify the file type after downloading. It is a linux executable and linkable file (ELF).
+- Import it to WSL and tried running the ELF. There is no output at all.
+```
+cp /mnt/c/Users/DEBROOP/Downloads/debugger0_a ~/
+chmod a+x debugger0_a
+debugger0_a
+```
+- Then, I searched how to get the contents of the file to look for the main function as asked.
+- Sources suggested using objdump or readelf. Using objdump -d because description asks to disassemble/
+```
+objdump -d debugger0_a
+```
+- This command gave a full [list](../assets/debugger0_a-objdump.txt) of the functions. Then, I found the main function.
+```
+0000000000001129 <main>:
+    1129:       f3 0f 1e fa             endbr64
+    112d:       55                      push   %rbp
+    112e:       48 89 e5                mov    %rsp,%rbp
+    1131:       89 7d fc                mov    %edi,-0x4(%rbp)
+    1134:       48 89 75 f0             mov    %rsi,-0x10(%rbp)
+    1138:       b8 42 63 08 00          mov    $0x86342,%eax
+    113d:       5d                      pop    %rbp
+    113e:       c3                      ret
+    113f:       90                      nop
+```
+- Found a hexadecimal number followed by %eax. Converted it to decimal and used it as flag.
+
+## Flag:
+
+```
+picoCTF{549698}
+```
+
+## Concepts learnt:
+- ELF files and uses.
+- How to run ELF files.
+- How to disassemble ELF files.
+- Uses of objdump.
+
+## Notes:
+- Alternate tangent 1: Tried to run the ELF file.
+
+## Resources:
+- ELF file content viewing (https://stackoverflow.com/questions/1685483/how-can-i-examine-contents-of-a-data-section-of-an-elf-file-on-linux)
+- objdump manpage (https://man7.org/linux/man-pages/man1/objdump.1.html)
