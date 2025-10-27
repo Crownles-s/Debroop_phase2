@@ -8,7 +8,7 @@ i like logic and i like files, apparently, they have something in common, what s
 - First, I exported the raw data. I could not find anything useful in that.
 - So, I searched up an ascii analyser for it.
 - The ascii analyser gave a csv file with sentences. I exported the file and used resource 2 to convert the csv to 1 sentence.
-- I opened the sentence in Word, and used find and replace to replace 0-9, fullstop and commas with blank, replaces COMMA with ,.
+- I opened the sentence in Word, and used find and replace to replace 0-9, fullstop and commas with blank, replaces COMMA with , and both \r and \n with spaces.
 - This gave a legible paragraph with a flag format in it.  
 
 Extracted and cleaned sentence in a [TXT file](../assets/logic.txt)
