@@ -29,3 +29,33 @@ FCSC{bdeeeeadfceaebbbebbddecbaea}
 ## Resources:
 - Salae analyser guide (https://support.saleae.com/user-guide/using-logic/saving-loading-and-exporting-data)
 - CSV to delimited (https://delim.co/#)
+
+# 2. IQ Test
+let your input x = 30478191278.
+
+wrap your answer with nite{ } for the flag.
+
+As an example, entering x = 34359738368 gives (y0, ..., y11), so the flag would be nite{010000000011}.
+
+## Solution:
+- Download the files and try solve the logic gates.
+- Since they take only 0's and 1's and I needed 36 x values, convert to 36 bit. Add an extra 0 at the start for 36 vales of x and we get 011100011000101001000100101010101110.
+- Now, I solve the gates.
+- The binary sequence gotten is 101101100111.
+- Flag is nite{101101100111}
+![Solved logic gates](../assets/iqtestsolved.png.jpg?raw=true)
+
+## Flag:
+
+```
+nite{101101100111}
+```
+
+## Concepts learnt:
+- Logic gates
+
+## Notes:
+- Alternate tangent 1: Tried binwalk.
+
+## Resources:
+- Logic Gates (https://www.geeksforgeeks.org/digital-logic/logic-gates/)
