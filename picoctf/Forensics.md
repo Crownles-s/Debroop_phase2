@@ -5,7 +5,7 @@ Decode this [message](../assets/message.wav) from the moon.
 - Open the given link, which downloads an audio file.
 - The given hints point us in the correct direction. The first research about the Apollo 11 moon landing's video transmission shows the technology at use: SSTV.
 - Search google for any possible SSTV decrypters.
-- Use a free online SSTV decrypter reveals an image file, the link in resources.
+- Use a free online SSTV decrypter reveals an image file.
 - This file has the flag.
 
 ![SSTV File](../assets/sstv_decoded_a66f1482-b89e-4472-8c15-7f54ab341a38.png?raw=true)
