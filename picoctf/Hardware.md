@@ -16,7 +16,7 @@ Extracted and cleaned sentence in a [TXT file](../assets/logic.txt)
 ## Flag:
 
 ```
-FCSC{bdeeeeadfceaebbbebbddecbaea}
+FCSC{b1dee4eeadf6c4e60aeb142b0b486344e64b12b40d1046de95c89ba5e23a9925}
 ```
 
 ## Concepts learnt:
@@ -25,6 +25,7 @@ FCSC{bdeeeeadfceaebbbebbddecbaea}
 
 ## Notes:
 - Alternate tangent 1: Export raw data and binary.
+- Alternate tangent 2: Accidentally removed numbers before copying flags.
 
 ## Resources:
 - Salae analyser guide (https://support.saleae.com/user-guide/using-logic/saving-loading-and-exporting-data)
