@@ -45,6 +45,8 @@ As an example, entering x = 34359738368 gives (y0, ..., y11), so the flag would 
 - The binary sequence gotten is 101101100111. 
 - Here, I made an error. Furthur analysis showed small dots before many gates. These dots invert the input and give a different answer.
 
+[Incorrect solution](../assets/iqtestsolved.png.jpg) 
+
 ## Flag:
 
 ```
