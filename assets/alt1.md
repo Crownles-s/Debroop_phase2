@@ -1,4 +1,4 @@
-- First, I can try to overload the system. By sending large input and see where it fails. I made a python code to input strings of specified length as input and send it.
+- I can try to overload the system. By sending large input and see where it fails. I made a python code to input strings of specified length as input and send it.
 - First, I connected to the netcat. Since host and port chnages when instance is closed, I kept them as variables.
 ```py
 import socket
