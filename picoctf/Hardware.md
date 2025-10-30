@@ -62,3 +62,68 @@ nite{100010011000}
 
 ## Resources:
 - Logic Gates (https://www.geeksforgeeks.org/digital-logic/logic-gates/)
+
+# 3. Bare Metal Alchemist
+my friend recommended me this anime but i think i've heard a wrong name.
+- Included [file](../assets/firmware.elf)
+
+## Solution:
+- The attached file is a .elf file, an executable and linkable linux file. Like in GDB baby step 1, I tried executing it first.
+- This throws an error.
+```bash
+./firmware.elf
+./firmware.elf: cannot execute binary file: Exec format error
+```
+- Searching the error, I understood that the file may have requirements like OS or architecture.
+- Next, I tried to objdump it.
+```sh
+objdump -d firmware.elf
+firmware.elf:     file format elf32-little
+objdump: can't disassemble for architecture UNKNOWN!
+```
+- Then, I searched up an architecture/OS checker.
+- I followed the instructions and found the correct architecture.
+```sh
+crownless@LAPTOP-6K42D1CN:~$ readelf -h firmware.elf | grep 'Class\|File\|Ma
+chine'
+  Class:                             ELF32
+  Machine:                           Atmel AVR 8-bit microcontroller
+```
+- Searching, I found that i needed to install some software, which I did.
+- I used a different [objdump](../assets/objdump3.txt) on the file.
+```sh
+avr-objdump -d firmware.elf
+```
+- This returned a lot of info. Looking at the main for clues.
+- Also downloaded Ghidra to decomplie better understand the assembly code as I am not familiar with it.
+- Installed Ghidra and JDK for running it.
+- Using Ghidra, I found the C code for the file. A lot of things were still in AVR code, like register names.
+- The C [code](../assets/decompiled.cs) made no sense so I switched back to the avr elf.
+- I looked up more methods and got simavr.
+- Installing simavr.
+- Using architecture atmega328p as shown in the objdump.
+
+## Flag:
+
+```
+FCCTF{Th1s_1s_som3_s1mpl3_4rdu1no_f1rmw4re}
+```
+
+## Concepts learnt:
+- Microcontroller Assembly and ELF.
+- Transforming AVR to C.
+- Uses of AVR libraries.
+
+## Notes:
+- Had many incorrect tangents; already documented in solution.
+- Did not fully understand everything about this.
+
+## Resources:
+- Error message information (https://stackoverflow.com/questions/66970902/getting-the-error-bash-program-cannot-execute-binary-file-exec-format-erro)
+- Architecture checker (https://stackoverflow.com/questions/3740379/how-can-i-get-the-architecture-of-a-a-file)
+- Atmel software (https://www.microchip.com/en-us/development-tool/atmel-avr-toolchain-for-linux)
+- C to AVR (https://www.codeproject.com/articles/AVR-Assembler#comments-section)
+- XOR (https://medium.com/%40horrow49/decrypting-firmware-a-practical-guide-to-unlocking-xor-encrypted-binaries-493320a91c9c)
+- simavr (https://www.instructables.com/Debugging-AVR-code-in-Linux-with-simavr/)
+- install (https://github.com/buserror/simavr)
+- simavr help (https://www.avrfreaks.net/s/topic/a5C3l000000UUn9EAG/t132157)
