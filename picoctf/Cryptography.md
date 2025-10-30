@@ -154,3 +154,47 @@ picoCTF{custom_d2cr0pt6d_751a22dc}
 - // function (https://www.freecodecamp.org/news/what-does-double-slash-mean-in-python/)
 - About XOR encryption (https://stackoverflow.com/questions/14279866/what-is-the-inverse-function-to-xor)
 - Python For loops (https://www.w3schools.com/python/python_for_loops.asp)
+
+# 3. rsa-oracle
+Can you abuse the oracle?
+An attacker was able to intercept communications between a bank and a fintech company. They managed to get the message [(ciphertext)](../assets/secret.enc) and the [password](../assets/password.enc) that was used to encrypt the message.
+
+- Hint 1: Crytography Threat models: chosen plaintext attack.
+- Hint 2: OpenSSL can be used to decrypt the message. e.g openssl enc -aes-256-cbc -d ...
+- Hint 3: The key to getting the flag is by sending a custom message to the server by taking advantage of the RSA encryption algorithm.
+- Hint 4: Minimum requirements for a useful cryptosystem is CPA security.
+
+## Solution:
+- Open the given links to download 2 enc files. Lookin up enc files shows that they are generic encoded files.
+- Opening the passwords file shows a number, while the secrets file is unreadable.
+- On running the netcat with random values, we see the encryption code to be `m ^ e mod n` and decryption to be `c ^ d mod n`.
+- We see another line `encoded length must be less than keysize`.
+- Looking up keysize, we see that m must be less than n.
+- e is a public key, usually 65537.
+- Now, to decode we need n.
+
+
+## Flag:
+
+```
+
+```
+
+## Concepts learnt:
+- 
+
+## Notes:
+- [Alternate tangent 1](../assets/alt1.md): 'Overflow' the netcat using a python [script](../assets/socket.py). Could not really understand where to go next.
+- [Alternate tangent 2](../assets/alt2.md): Used normal [GCD](../assets/gcd_fail.py) factoring without considering padding.
+
+## Resources:
+- .enc information (https://www.reviversoft.com/en/file-extensions/enc)
+- Modular arithmetic (https://en.wikipedia.org/wiki/Modular_arithmetic)
+- Key size (https://en.wikipedia.org/wiki/Key_size)
+- RSA oracle usage (https://en.wikipedia.org/wiki/RSA_cryptosystem#:~:text=by%20sending%20her%20random%20or%20maliciously%20crafted%20ciphertexts)
+- n retrieval (https://cryptohack.gitbook.io/cryptobook/untitled/recovering-the-modulus)
+- GCD in python (https://www.ccbp.in/blog/articles/gcd-of-two-numbers-in-python)
+- Func definition with input and return (https://www.geeksforgeeks.org/python/python-functions/)
+- Connect to netcat using python (https://gist.github.com/leonjza/adc69cadc3d8a5d4c068) and (https://stackoverflow.com/questions/1908878/netcat-implementation-in-python)
+- Variables (https://www.w3schools.com/python/python_variables.asp)
+- 
