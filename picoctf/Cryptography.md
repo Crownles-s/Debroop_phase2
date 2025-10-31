@@ -46,7 +46,7 @@ Find the encrypted file here [flag_info](../assets/enc_flag) and [code file](../
 - The python script is an encryption sequence that appears to be using a and b to ENCRYPT a sequence.
 - Since I have my own a and b, I need to somehow construct a decryption script and use that with the a, b and cipher to get the flag.
 - On reading the script, I saw multiple functions. A generator function took 3 variables and performed a simple arithmatic operation, isPrime returns true and false based on prime or not, were the two I understood easily.
-- To get the decrypt script I need to reverse all the opeartions.
+- To get the decrypt script I need to reverse all the operations.
 - It also uses 2 values p and g for the encryption, 97 and 31 respectively.
 - To reverse, we need to reverse each operation.
 - First, I tried to interpret all the operations using resources 3, 4 and 5.
