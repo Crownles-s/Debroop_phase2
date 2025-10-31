@@ -170,22 +170,40 @@ An attacker was able to intercept communications between a bank and a fintech co
 - On running the netcat with random values, we see the encryption code to be `m ^ e mod n` and decryption to be `c ^ d mod n`.
 - We see another line `encoded length must be less than keysize`.
 - Looking up keysize, we see that m must be less than n.
-- e is a public key, usually 65537.
 - Now, to decode we need n.
-
+- Using the hints, we see CPA or chosen plaintext attacks.
+- Looked up padding methods and decryption methods.
+- Results showed some techniques. The most common one, Bleichenbacher Attack, needed us to know n.
+- I understood that brute forcing an n calculation will be impossible. So, I looked closer at modular arithmetic, and especially at the multiplicative property of RSA `decrypt (c1 * c2 mod n) = decrypt (c1) * decrypt (c2) mod n`
+- I need to encrypt a chosen plaintext value, multiply with the password, decrypt the multiplication, and divide by the plaintext.
+- Using this method, I got a decimal output with unreadable ascii characters. So, convert to hex and then to ascii, I got the password `92d53`.
+- Now, I installed openSSL and ran the decryption code with the key.
+```
+C:\Users\DEBROOP>openssl enc -aes-256-cbc -d -in "C:\Users\DEBROOP\Downloads\secret.enc" -k 92d53
+*** WARNING : deprecated key derivation used.
+Using -iter or -pbkdf2 would be better.
+picoCTF{su((3ss_(r@ck1ng_r3@_92d53250}
+```
 
 ## Flag:
 
 ```
-
+picoCTF{su((3ss_(r@ck1ng_r3@_92d53250}
 ```
 
 ## Concepts learnt:
-- 
+- Padded RSA encryption.
+- Non-padded RSA GCD attack.
+- Chosen-Plaintext Attacks.
+- Python netcat fundamentals.
+- RSA security strength.
+- Abusing encryption oracles.
+- Multiplicative properties of RSA using modular arithmetic.
 
 ## Notes:
 - [Alternate tangent 1](../assets/alt1.md): 'Overflow' the netcat using a python [script](../assets/socket.py). Could not really understand where to go next.
 - [Alternate tangent 2](../assets/alt2.md): Used normal [GCD](../assets/gcd_fail.py) factoring without considering padding.
+- Alternate tangent 3: Tried different formats for the decrypted password.
 
 ## Resources:
 - .enc information (https://www.reviversoft.com/en/file-extensions/enc)
@@ -195,6 +213,8 @@ An attacker was able to intercept communications between a bank and a fintech co
 - n retrieval (https://cryptohack.gitbook.io/cryptobook/untitled/recovering-the-modulus)
 - GCD in python (https://www.ccbp.in/blog/articles/gcd-of-two-numbers-in-python)
 - Func definition with input and return (https://www.geeksforgeeks.org/python/python-functions/)
+- Padding (https://medium.com/asecuritysite-when-bob-met-alice/so-how-does-padding-work-in-rsa-6b34a123ca1f)
+- Attack method (https://medium.com/@c0D3M/bleichenbacher-attack-explained-bc630f88ff25)
+- OpenSSL commands (https://www.youtube.com/watch?v=WweWxoPN5qI)
 - Connect to netcat using python (https://gist.github.com/leonjza/adc69cadc3d8a5d4c068) and (https://stackoverflow.com/questions/1908878/netcat-implementation-in-python)
 - Variables (https://www.w3schools.com/python/python_variables.asp)
-- 
