@@ -150,7 +150,7 @@ picoCTF{jU5t_a_s1mpl3_an4gr4m_4_u_79958f}
 ## Resources:
 - None.
 
-# 2. GDB baby step 1
+# 3. GDB baby step 1
 Can you figure out what is in the eax register at the end of the main function? Put your answer in the picoCTF flag format: picoCTF{n} where n is the contents of the eax register in the decimal number base. If the answer was 0x11 your flag would be picoCTF{17}.
 Disassemble [this.](../assets/debugger0_a)
 
