@@ -87,7 +87,7 @@ picoCTF{qu1t3_a_v13w_2020}
 - Bitmap header information (https://en.wikipedia.org/wiki/BMP_file_format#:~:text=The%20first%202%20bytes%20of,least%2Dsignificant%20byte%20first).&text=The%20header%20field%20used%20to,same%20as%20BM%20in%20ASCII.)
 
 # 3. Trivial Flag Transfer Protocol
-Figure out how they moved the [flag](../assets/tftp.pcapng).
+Figure out how they moved the flag.
 
 ## Solution:
 - Download the pcapng file and open it in Wireshark to see details.
