@@ -73,7 +73,7 @@ b = randint(g-10, g)
 - Then, a semi cipher is constructed using the dynamic xor func with the flag and shared key as input.
 - That is furthur encrypted to a full cipher using the encrypt func and semi cipher and shared key as input.
 - Since test func in now deciphered, I looked at the others. isPrime is also understood and has no impact on my program, since I already have primes.
-- Generator func is also easy to understand, being just a power and a modulud function. encrypt takes every character (for char in plaintext), uses ord to find the ascii values and multiplies it by 311 and the key, same as the shared_key and b_key.
+- Generator func is also easy to understand, being just a power and a modulus function. encrypt takes every character (for char in plaintext), uses ord to find the ascii values and multiplies it by 311 and the key, same as the shared_key and b_key.
 - For reversing encrypt, we can take the characters, divide them by 311 and the shared_key. Then, use the chr function to reverse the function of ord.
 - The actual main function passes a message and "trudeau" to the test function. The test function treats the message as the plaintext flag and the "trudeau" as a text_key. The dynamic_xor function also gets the same input.
 - The xor function makes a key_length that calculates the length of text_key, which is always 7 from trudeau.
